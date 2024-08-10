@@ -1,0 +1,4 @@
+module.exports.COMMAND_SCOPE = {
+	GUILD: 'GUILD',
+	APPLICATION: 'APPLICATION',
+};
