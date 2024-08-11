@@ -1,21 +1,21 @@
 {
-	"name": "discord-bot-js",
+	"name": "akkosotto-srq-bot",
 	"version": "1.0.0",
-	"description": "Boilerplate for discord bot",
+	"description": "Discord bot using discord.js",
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon --env-file=.env ."
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+ssh://git@github.com/muhamedfazeel/noobie-bot-js.git"
+		"url": "git+ssh://git@github.com/muhamedfazeel/akkosotto-srq-bot.git"
 	},
 	"author": "Muhamed Fazeel",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/muhamedfazeel/noobie-bot-js/issues"
+		"url": "https://github.com/muhamedfazeel/akkosotto-srq-bot/issues"
 	},
-	"homepage": "https://github.com/muhamedfazeel/noobie-bot-js#readme",
+	"homepage": "https://github.com/muhamedfazeel/akkosotto-srq-bot#readme",
 	"dependencies": {
 		"discord.js": "^14.15.3"
 	},

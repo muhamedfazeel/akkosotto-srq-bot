@@ -10,33 +10,41 @@ const commandFolders = fs.readdirSync(foldersPath);
  * @returns {Array} An Oject of loaded commands data arrays.
  */
 module.exports.loadCommands = (client) => {
-	const commands = {
-		APPLICATION: [],
-		GUILD: [],
-	};
-	console.log('Loading Application (/) commands');
-	try {
-		for (const folder of commandFolders) {
-			const commandsPath = path.join(foldersPath, folder);
-			const commandFiles = fs
-				.readdirSync(commandsPath)
-				.filter((file) => file.endsWith('.js'));
-			for (const file of commandFiles) {
-				const filePath = path.join(commandsPath, file);
-				const command = require(filePath);
-				if ('data' in command && 'execute' in command) {
-					commands[command.scope].push(command.data.toJSON());
-					client.commands.set(command.data.name, command);
-					console.log('Loaded command: ', command.data.name);
-				} else {
-					console.warn(
-						`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-					);
-				}
-			}
-		}
-		return commands;
-	} catch (error) {
-		console.log(error);
-	}
+  const commands = {
+    APPLICATION: [],
+    GUILD: [],
+  };
+
+  console.log("Loading Application (/) commands");
+  try {
+    for (const folder of commandFolders) {
+      const commandsPath = path.join(foldersPath, folder);
+      const commandFiles = fs
+        .readdirSync(commandsPath)
+        .filter((file) => file.endsWith(".js"));
+
+      for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+
+        if ("data" in command && "execute" in command) {
+          if (!commands[command.scope]) {
+            commands[command.scope] = [];
+          }
+
+          commands[command.scope].push(command.data.toJSON());
+          client.commands.set(command.data.name, command);
+
+          console.log("Loaded command: ", command.data.name);
+        } else {
+          console.warn(
+            `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+          );
+        }
+      }
+    }
+    return commands;
+  } catch (error) {
+    console.error("Error loading commands:", error);
+  }
 };
