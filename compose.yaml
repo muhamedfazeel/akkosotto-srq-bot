@@ -1,0 +1,14 @@
+services:
+  bot:
+    container_name: 'akkosotto'
+    image: node:20.15.0-alpine # Use the official Node.js image
+    working_dir: /usr/src/app # Set the working directory inside the container
+    volumes:
+      - .:/usr/src/app # Mount the current directory into the container
+      - ./logs:/usr/src/app/logs
+    environment:
+      NODE_ENV: production # Set environment variables
+    command: sh -c "npm i --omit=dev && npm start" # Command to start >
+    restart: unless-stopped # Restart policy to keep the container running
+    env_file:
+      - .env
