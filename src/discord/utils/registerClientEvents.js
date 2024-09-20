@@ -1,5 +1,8 @@
 const path = require('path');
 const fs = require('fs');
+const CustomLogger = require('../../shared/logger');
+
+const logger = new CustomLogger('Reload');
 
 const eventsPath = path.join(__dirname, '../events');
 const eventFiles = fs
@@ -19,6 +22,6 @@ module.exports.registerClientEvents = (client) => {
 		} else {
 			client.on(event.name, (...args) => event.execute(...args));
 		}
-		console.log('Loaded event: ', event.label);
+		logger.log('Loaded event: ', event.label);
 	}
 };

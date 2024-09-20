@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { COMMAND_SCOPE } = require('../../../shared/constants');
+const CustomLogger = require('../../../shared/logger');
+
+const logger = new CustomLogger('Reload [Command]');
 
 module.exports = {
 	category: 'moderation',
@@ -38,7 +41,7 @@ module.exports = {
 				`Command \`${newCommand.data.name}\` was reloaded!`
 			);
 		} catch (error) {
-			console.error(error);
+			logger.error(error);
 			await interaction.reply(
 				`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``
 			);

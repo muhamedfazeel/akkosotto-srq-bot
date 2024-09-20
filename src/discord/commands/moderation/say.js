@@ -1,9 +1,8 @@
-const {
-	SlashCommandBuilder,
-	ChannelType,
-	EmbedBuilder,
-} = require('discord.js');
+const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const { COMMAND_SCOPE } = require('../../../shared/constants');
+const CustomLogger = require('../../../shared/logger');
+
+const logger = new CustomLogger('Say [COMMAND]');
 
 module.exports = {
 	category: 'moderation',
@@ -32,7 +31,7 @@ module.exports = {
 			await channel.send(message);
 			await interaction.reply({ content: 'Message sent!', ephemeral: true });
 		} catch (error) {
-			console.error('Error sending message:', error);
+			logger.error('Error sending message:', error);
 			await interaction.reply({
 				content: 'There was an error sending the message.',
 				ephemeral: true,
