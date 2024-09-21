@@ -71,32 +71,36 @@ class CustomLogger {
 		});
 	}
 
-	// Logging method that handles various types of input
-	format(level, message) {
-		let logMessage;
-
-		if (typeof message === 'object') {
-			// If the message is an object, stringify it
-			logMessage = JSON.stringify(message, null, 2);
-		} else {
-			// For other types (number, string, etc.), convert to string if necessary
-			logMessage = String(message);
-		}
+	// Logging method that handles variable arguments
+	format(level, ...messages) {
+		// Combine multiple arguments into a single message
+		const logMessage = messages.map((message) => {
+			if (typeof message === 'object') {
+				// Pretty print objects and arrays
+				return JSON.stringify(message, null, 2);
+			} else if (Array.isArray(message)) {
+				// Format arrays similarly
+				return JSON.stringify(message, null, 2);
+			} else {
+				// For other types, convert to string if necessary
+				return String(message);
+			}
+		}).join(' '); // Join all messages with a space
 
 		this.logger.log({ level, message: logMessage });
 	}
 
 	// Shortcuts for commonly used log levels
-	log(message) {
-		this.format('info', message);
+	log(...messages) {
+		this.format('info', ...messages);
 	}
 
-	warn(message) {
-		this.format('warn', message);
+	warn(...messages) {
+		this.format('warn', ...messages);
 	}
 
-	error(err) {
-		this.format('error', err?.message || err);
+	error(...messages) {
+		this.format('error', ...messages);
 	}
 }
 
